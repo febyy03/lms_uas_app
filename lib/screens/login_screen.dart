@@ -39,45 +39,54 @@ class _LoginScreenState extends State<LoginScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final screenHeight = MediaQuery.of(context).size.height;
     
+    // Responsive header height - smaller on small screens
+    final headerHeight = screenHeight < 700 
+        ? screenHeight * 0.28 
+        : screenHeight * 0.35;
+    
     return Scaffold(
       backgroundColor: isDark ? backgroundDark : backgroundLight,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: math.max(screenHeight, 884),
-          child: Stack(
-            children: [
-              // Header with image
-              _buildHeader(context, isDark),
-              
-              // Circular logo overlay
-              _buildCircularLogo(context, isDark),
-              
-              // Main content
-              Positioned(
-                top: screenHeight * 0.35 + 40,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: _buildContent(isDark),
+      body: SafeArea(
+        top: false,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
+                child: IntrinsicHeight(
+                  child: Stack(
+                    children: [
+                      // Header with image
+                      _buildHeader(context, isDark, headerHeight),
+                      
+                      // Circular logo overlay
+                      _buildCircularLogo(context, isDark, headerHeight),
+                      
+                      // Main content - Now using Column instead of Positioned
+                      Column(
+                        children: [
+                          SizedBox(height: headerHeight + 40),
+                          Expanded(
+                            child: _buildContent(isDark),
+                          ),
+                          // Wave decoration at bottom
+                          _buildWaveDecoration(isDark),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              
-              // Wave decoration at bottom
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: _buildWaveDecoration(isDark),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _buildHeader(BuildContext context, bool isDark) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    
+  Widget _buildHeader(BuildContext context, bool isDark, double headerHeight) {
     return ClipPath(
       clipper: _HeaderClipper(),
       child: Stack(
@@ -85,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
           // Background image
           Container(
             width: double.infinity,
-            height: screenHeight * 0.35,
+            height: headerHeight,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
@@ -98,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
           // Dark overlay
           Container(
             width: double.infinity,
-            height: screenHeight * 0.35,
+            height: headerHeight,
             color: isDark 
                 ? Colors.black.withOpacity(0.4) 
                 : Colors.black.withOpacity(0.1),
@@ -108,17 +117,20 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildCircularLogo(BuildContext context, bool isDark) {
+  Widget _buildCircularLogo(BuildContext context, bool isDark, double headerHeight) {
+    // Responsive logo size
     final screenHeight = MediaQuery.of(context).size.height;
+    final logoSize = screenHeight < 700 ? 80.0 : 96.0;
+    final iconSize = screenHeight < 700 ? 40.0 : 48.0;
     
     return Positioned(
-      top: screenHeight * 0.35 - 48 - 10, // Position at bottom of header, slightly overlapping
+      top: headerHeight - (logoSize / 2) - 10,
       left: 0,
       right: 0,
       child: Center(
         child: Container(
-          width: 96,
-          height: 96,
+          width: logoSize,
+          height: logoSize,
           decoration: BoxDecoration(
             color: primaryColor,
             shape: BoxShape.circle,
@@ -136,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           child: Center(
             child: CustomPaint(
-              size: const Size(48, 48),
+              size: Size(iconSize, iconSize),
               painter: _ULogoPainter(),
             ),
           ),
@@ -146,22 +158,25 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildContent(bool isDark) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isSmallScreen = screenHeight < 700;
+    
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
+      padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 24 : 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 32),
+          SizedBox(height: isSmallScreen ? 20 : 32),
           // Login Title
           Text(
             'Login',
             style: GoogleFonts.poppins(
-              fontSize: 30,
+              fontSize: isSmallScreen ? 26 : 30,
               fontWeight: FontWeight.bold,
               color: isDark ? Colors.white : textDark,
             ),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: isSmallScreen ? 24 : 40),
           // Email Field
           _buildUnderlineTextField(
             controller: _emailController,
@@ -169,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
             label: 'Email 365',
             isDark: isDark,
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: isSmallScreen ? 20 : 32),
           // Password Field
           _buildUnderlineTextField(
             controller: _passwordController,
@@ -178,10 +193,10 @@ class _LoginScreenState extends State<LoginScreen> {
             isDark: isDark,
             isPassword: true,
           ),
-          const SizedBox(height: 48),
+          SizedBox(height: isSmallScreen ? 32 : 48),
           // Login Button
           _buildLoginButton(),
-          const SizedBox(height: 16),
+          SizedBox(height: isSmallScreen ? 12 : 16),
           // Help Link
           Center(
             child: GestureDetector(
@@ -198,6 +213,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
+          // Add flexible space at bottom
+          const Spacer(),
         ],
       ),
     );
@@ -275,7 +292,8 @@ class _LoginScreenState extends State<LoginScreen> {
       height: 52,
       child: ElevatedButton(
         onPressed: () {
-          // TODO: Handle login
+          // Navigate to home screen
+          Navigator.pushReplacementNamed(context, '/home');
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
