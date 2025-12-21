@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'notification_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -11,6 +12,33 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   int _selectedTabIndex = 0;
   int _currentNavIndex = 0;
+
+  // Edit Profile Controllers
+  late TextEditingController _firstNameController;
+  late TextEditingController _lastNameController;
+  late TextEditingController _emailController;
+  late TextEditingController _countryController;
+  late TextEditingController _descriptionController;
+
+  @override
+  void initState() {
+    super.initState();
+    _firstNameController = TextEditingController();
+    _lastNameController = TextEditingController();
+    _emailController = TextEditingController();
+    _countryController = TextEditingController();
+    _descriptionController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _countryController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
 
   // Theme colors matching the HTML design
   static const Color primaryColor = Color(0xFFB94141);
@@ -403,40 +431,144 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.fromLTRB(
-        config.horizontalPadding + config.spacing8,
-        config.spacing16,
-        config.horizontalPadding + config.spacing8,
+        config.horizontalPadding,
+        config.spacing24,
+        config.horizontalPadding,
         config.bottomNavHeight + 80,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          _buildTextField(
+            label: 'Nama Pertama',
+            controller: _firstNameController,
+            isDark: isDark,
+            config: config,
+          ),
+          SizedBox(height: config.spacing20),
+          _buildTextField(
+            label: 'Nama Terakhir',
+            controller: _lastNameController,
+            isDark: isDark,
+            config: config,
+          ),
+          SizedBox(height: config.spacing20),
+          _buildTextField(
+            label: 'E-mail Address',
+            controller: _emailController,
+            isDark: isDark,
+            config: config,
+            keyboardType: TextInputType.emailAddress,
+          ),
+          SizedBox(height: config.spacing20),
+          _buildTextField(
+            label: 'Negara',
+            controller: _countryController,
+            isDark: isDark,
+            config: config,
+          ),
+          SizedBox(height: config.spacing20),
+          _buildTextField(
+            label: 'Deskripsi',
+            controller: _descriptionController,
+            isDark: isDark,
+            config: config,
+            maxLines: 5,
+          ),
           SizedBox(height: config.spacing32),
-          Icon(
-            Icons.edit_note_rounded,
-            size: 64,
-            color: isDark ? textMutedDark : textMutedLight,
-          ),
-          SizedBox(height: config.spacing16),
-          Text(
-            'Edit Profile',
-            style: GoogleFonts.inter(
-              fontSize: config.fontSizeMedium,
-              fontWeight: FontWeight.bold,
-              color: isDark ? textDark : textLight,
+          Align(
+            alignment: Alignment.centerRight,
+            child: ElevatedButton(
+              onPressed: () {
+                // Save functionality placeholder
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Profile saved successfully!')),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isDark ? const Color(0xFF374151) : const Color(0xFFF3F4F6),
+                foregroundColor: isDark ? Colors.white : const Color(0xFF111827),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: config.spacing12,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(config.borderRadiusMedium),
+                ),
+                elevation: 1,
+              ),
+              child: Text(
+                'Simpan',
+                style: GoogleFonts.inter(
+                  fontSize: config.fontSizeSmall,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
-          ),
-          SizedBox(height: config.spacing8),
-          Text(
-            'Fitur ini akan segera tersedia',
-            style: GoogleFonts.inter(
-              fontSize: config.fontSizeNormal,
-              color: isDark ? textMutedDark : textMutedLight,
-            ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildTextField({
+    required String label,
+    required TextEditingController controller,
+    required bool isDark,
+    required _ProfileResponsiveConfig config,
+    int maxLines = 1,
+    TextInputType? keyboardType,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 4),
+          child: Text(
+            label,
+            style: GoogleFonts.inter(
+              fontSize: config.fontSizeSmall,
+              fontWeight: FontWeight.w500,
+              color: isDark ? const Color(0xFFE5E7EB) : const Color(0xFF1F2937),
+            ),
+          ),
+        ),
+        SizedBox(height: config.spacing8),
+        TextField(
+          controller: controller,
+          maxLines: maxLines,
+          keyboardType: keyboardType,
+          style: GoogleFonts.inter(
+            fontSize: config.fontSizeSmall,
+            color: isDark ? Colors.white : const Color(0xFF111827),
+          ),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: isDark ? cardDark : Colors.white,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: config.spacing16,
+              vertical: config.spacing12,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(config.borderRadiusMedium),
+              borderSide: BorderSide(
+                color: isDark ? const Color(0xFF4B5563) : const Color(0xFF9CA3AF),
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(config.borderRadiusMedium),
+              borderSide: BorderSide(
+                color: isDark ? const Color(0xFF4B5563) : const Color(0xFF9CA3AF),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(config.borderRadiusMedium),
+              borderSide: const BorderSide(
+                color: primaryColor,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -612,6 +744,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       onTap: () {
         if (index == 0) {
           Navigator.of(context).pop();
+        } else if (index == 2) {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const NotificationScreen()),
+          );
         } else {
           setState(() {
             _currentNavIndex = index;

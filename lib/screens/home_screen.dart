@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'profile_screen.dart';
+import 'notification_screen.dart';
+import 'announcement_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -314,7 +316,13 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: config.buttonHeight,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const AnnouncementScreen(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: primaryColor,
@@ -848,9 +856,15 @@ class _HomeScreenState extends State<HomeScreen> {
     
     return GestureDetector(
       onTap: () {
-        setState(() {
-          _currentNavIndex = index;
-        });
+        if (index == 2) {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const NotificationScreen()),
+          );
+        } else {
+          setState(() {
+            _currentNavIndex = index;
+          });
+        }
       },
       child: Opacity(
         opacity: isSelected ? 1.0 : 0.7,
