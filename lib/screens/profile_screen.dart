@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'notification_screen.dart';
+import 'course_detail_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -375,54 +376,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }) {
     const Color iconBlue = Color(0xFF7FB5D9);
 
-    return Padding(
-      padding: EdgeInsets.only(bottom: config.spacing24),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Course icon (blue oval)
-          Container(
-            width: 64,
-            height: 40,
-            decoration: BoxDecoration(
-              color: iconBlue,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: iconBlue.withValues(alpha: 0.3),
-                  blurRadius: 6,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => CourseDetailScreen(courseName: title),
           ),
-          SizedBox(width: config.spacing16),
-          // Course info
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title.toUpperCase(),
-                  style: GoogleFonts.poppins(
-                    fontSize: config.fontSizeSmall,
-                    fontWeight: FontWeight.w600,
-                    color: isDark ? textDark : const Color(0xFF1F2937),
-                    height: 1.4,
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.only(bottom: config.spacing24),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Course icon (blue oval)
+            Container(
+              width: 64,
+              height: 40,
+              decoration: BoxDecoration(
+                color: iconBlue,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: iconBlue.withValues(alpha: 0.3),
+                    blurRadius: 6,
+                    offset: const Offset(0, 2),
                   ),
-                ),
-                SizedBox(height: config.spacing4),
-                Text(
-                  'Tanggal Mulai $startDate',
-                  style: GoogleFonts.poppins(
-                    fontSize: config.fontSizeXSmall,
-                    color: isDark ? textMutedDark : textMutedLight,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+            SizedBox(width: config.spacing16),
+            // Course info
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title.toUpperCase(),
+                    style: GoogleFonts.poppins(
+                      fontSize: config.fontSizeSmall,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? textDark : const Color(0xFF1F2937),
+                      height: 1.4,
+                    ),
+                  ),
+                  SizedBox(height: config.spacing4),
+                  Text(
+                    'Tanggal Mulai $startDate',
+                    style: GoogleFonts.poppins(
+                      fontSize: config.fontSizeXSmall,
+                      color: isDark ? textMutedDark : textMutedLight,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'announcement_detail_screen.dart';
+import 'course_detail_screen.dart';
 
 class AnnouncementScreen extends StatelessWidget {
   const AnnouncementScreen({super.key});
@@ -92,12 +94,27 @@ class AnnouncementScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  _BottomNavItem(icon: Icons.home_rounded, label: 'Home'),
-                  _BottomNavItem(icon: Icons.school_rounded, label: 'Kelas Saya'),
+                  _BottomNavItem(
+                    icon: Icons.home_rounded, 
+                    label: 'Home',
+                    onTap: () {
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                    },
+                  ),
+                  _BottomNavItem(
+                    icon: Icons.school_rounded, 
+                    label: 'Kelas Saya',
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const CourseDetailScreen()),
+                      );
+                    },
+                  ),
                   _BottomNavItem(
                     icon: Icons.notifications_rounded,
                     label: 'Notifikasi',
                     showBadge: true,
+                    onTap: () {}, // Already here or similar
                   ),
                 ],
               ),
@@ -122,44 +139,55 @@ class _AnnouncementItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Transform.rotate(
-          angle: -0.2, // Approx -12 degrees
-          child: Icon(
-            Icons.campaign_rounded,
-            size: 40,
-            color: isDark ? Colors.white : Colors.black,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  height: 1.3,
-                  color: isDark ? const Color(0xFFF3F4F6) : const Color(0xFF111827),
-                ),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const AnnouncementDetailScreen()),
+        );
+      },
+      borderRadius: BorderRadius.circular(12),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Transform.rotate(
+              angle: -0.2, // Approx -12 degrees
+              child: Icon(
+                Icons.campaign_rounded,
+                size: 40,
+                color: isDark ? Colors.white : Colors.black,
               ),
-              const SizedBox(height: 4),
-              Text(
-                subtitle,
-                style: GoogleFonts.poppins(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w300,
-                  color: isDark ? const Color(0xFF9CA3AF) : const Color(0xFF6B7280),
-                ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      height: 1.3,
+                      color: isDark ? const Color(0xFFF3F4F6) : const Color(0xFF111827),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w300,
+                      color: isDark ? const Color(0xFF9CA3AF) : const Color(0xFF6B7280),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
@@ -168,18 +196,22 @@ class _BottomNavItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final bool showBadge;
+  final VoidCallback? onTap;
 
   const _BottomNavItem({
     required this.icon,
     required this.label,
     this.showBadge = false,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
         Stack(
           children: [
             Padding(
@@ -217,7 +249,8 @@ class _BottomNavItem extends StatelessWidget {
             color: Colors.white.withValues(alpha: 0.9),
           ),
         ),
-      ],
+        ],
+      ),
     );
   }
 }

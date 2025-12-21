@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'profile_screen.dart';
 import 'notification_screen.dart';
 import 'announcement_screen.dart';
+import 'course_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -859,6 +860,10 @@ class _HomeScreenState extends State<HomeScreen> {
         if (index == 2) {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const NotificationScreen()),
+          );
+        } else if (index == 1) {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const CourseDetailScreen()),
           );
         } else {
           setState(() {
