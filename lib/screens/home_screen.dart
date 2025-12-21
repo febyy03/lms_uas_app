@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -149,51 +150,58 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildProfileImage(bool isDark, ResponsiveConfig config) {
-    return Stack(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(2),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: primaryColor, width: 2),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(config.profileImageSize / 2),
-            child: Image.network(
-              'https://lh3.googleusercontent.com/aida-public/AB6AXuAojsXXKU07Qn0dA7jHwRb4Kmn8VhX3Akl_8cWyw47dTthzAFsejgXa94aQH5zKeCBfm18xW6yBpAFG4xQpxpvqMHgxAE18TPNVcg5PhNdi7fXH8Ri-bqK7LV79NFETGVBp22y9UyAf92U1N2l5d3uCFkkKiHtalkjhcfUch6m9OtZWHNrxe5OmcrC8nIk-mrj5yyInBZ12hS3EreMfsfFI-vCMRWKCNJAbEIfSMibX8hea8jOGBD-X0PLJoeLHw2_xLLNM1h2e44g',
-              width: config.profileImageSize,
-              height: config.profileImageSize,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const ProfileScreen()),
+        );
+      },
+      child: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: primaryColor, width: 2),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(config.profileImageSize / 2),
+              child: Image.network(
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuAojsXXKU07Qn0dA7jHwRb4Kmn8VhX3Akl_8cWyw47dTthzAFsejgXa94aQH5zKeCBfm18xW6yBpAFG4xQpxpvqMHgxAE18TPNVcg5PhNdi7fXH8Ri-bqK7LV79NFETGVBp22y9UyAf92U1N2l5d3uCFkkKiHtalkjhcfUch6m9OtZWHNrxe5OmcrC8nIk-mrj5yyInBZ12hS3EreMfsfFI-vCMRWKCNJAbEIfSMibX8hea8jOGBD-X0PLJoeLHw2_xLLNM1h2e44g',
                 width: config.profileImageSize,
                 height: config.profileImageSize,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  shape: BoxShape.circle,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  width: config.profileImageSize,
+                  height: config.profileImageSize,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.person, color: Colors.grey, size: config.profileImageSize * 0.6),
                 ),
-                child: Icon(Icons.person, color: Colors.grey, size: config.profileImageSize * 0.6),
               ),
             ),
           ),
-        ),
-        // Online indicator
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: Container(
-            width: config.onlineIndicatorSize,
-            height: config.onlineIndicatorSize,
-            decoration: BoxDecoration(
-              color: Colors.green,
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: isDark ? surfaceDark : Colors.white,
-                width: 2,
+          // Online indicator
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              width: config.onlineIndicatorSize,
+              height: config.onlineIndicatorSize,
+              decoration: BoxDecoration(
+                color: Colors.green,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isDark ? surfaceDark : Colors.white,
+                  width: 2,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
