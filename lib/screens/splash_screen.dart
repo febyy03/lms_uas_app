@@ -86,6 +86,15 @@ class _SplashScreenState extends State<SplashScreen>
                           color: Colors.white,
                         ),
                         const SizedBox(height: 16),
+                        Text(
+                          'LMS',
+                          style: GoogleFonts.inter(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            letterSpacing: 2,
+                          ),
+                        ),
                         // Subtitle
                         Text(
                           'Learning Management System',

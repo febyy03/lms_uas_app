@@ -6,7 +6,12 @@ import 'announcement_screen.dart';
 import 'course_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final String userName;
+
+  const HomeScreen({
+    super.key,
+    this.userName = 'Mahasiswa Teladan',
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -127,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: config.spacing4),
                     Text(
-                      'Mahasiswa Teladan',
+                      widget.userName,
                       style: GoogleFonts.poppins(
                         fontSize: config.fontSizeXLarge,
                         fontWeight: FontWeight.bold,
@@ -156,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const ProfileScreen()),
+          MaterialPageRoute(builder: (context) => ProfileScreen(userName: widget.userName)),
         );
       },
       child: Stack(

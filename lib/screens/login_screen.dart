@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
+import 'home_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,10 +12,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
   
+  // Dummy credentials
+  final Map<String, String> _users = {
+  'admin@365.com': '123456',
+  'user@365.com': 'password',
+};
+
+  
+  final FocusNode _nameFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
 
@@ -27,8 +38,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _nameFocusNode.dispose();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     super.dispose();
@@ -177,6 +190,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           SizedBox(height: isSmallScreen ? 24 : 40),
+          // Name Field
+          _buildUnderlineTextField(
+            controller: _nameController,
+            focusNode: _nameFocusNode,
+            label: 'Nama Lengkap',
+            isDark: isDark,
+          ),
+          SizedBox(height: isSmallScreen ? 20 : 32),
           // Email Field
           _buildUnderlineTextField(
             controller: _emailController,
@@ -292,8 +313,30 @@ class _LoginScreenState extends State<LoginScreen> {
       height: 52,
       child: ElevatedButton(
         onPressed: () {
-          // Navigate to home screen
-          Navigator.pushReplacementNamed(context, '/home');
+          final name = _nameController.text.trim();
+          final email = _emailController.text.trim();
+          final password = _passwordController.text.trim();
+          
+          if (_users.containsKey(email) && password == '123456') {
+             Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                // Use entered name if provided, otherwise use default from map
+                builder: (context) => HomeScreen(userName: name.isNotEmpty ? name : _users[email]!),
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Email atau sandi salah',
+                  style: GoogleFonts.poppins(color: Colors.white),
+                ),
+                backgroundColor: Colors.red[700],
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          }
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
