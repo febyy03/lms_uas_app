@@ -156,16 +156,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: ListView(
                     padding: const EdgeInsets.fromLTRB(24, 0, 24, 120),
                     children: [
-                       _buildInputField("Nama Pertama", _firstNameController),
+                       _buildInputField("Nama", _firstNameController),
                        const SizedBox(height: 16),
-                       _buildInputField("Nama Terakhir", _lastNameController),
+                       _buildInputField("NPM", _emailController, inputType: TextInputType.emailAddress),
                        const SizedBox(height: 16),
-                       _buildInputField("E-mail Address", _emailController, inputType: TextInputType.emailAddress),
+                       _buildInputField("Fakultas", _countryController),
                        const SizedBox(height: 16),
-                       _buildInputField("Negara", _countryController),
-                       const SizedBox(height: 16),
-                       _buildInputField("Deskripsi", _descriptionController, maxLines: 5),
-                       
+                       _buildInputField("Deskripsi", _descriptionController, maxLines: 5),  
                        const SizedBox(height: 32),
                        
                        Align(

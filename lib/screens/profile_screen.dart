@@ -57,19 +57,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 8),
                       // Profile Image
                       Container(
-                        width: 112, // 28 * 4
+                        width: 112,
                         height: 112,
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white.withOpacity(0.2), width: 4),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                            width: 4,
+                          ),
                         ),
                         child: ClipOval(
-                          child: Image.network(
-                            'https://lh3.googleusercontent.com/aida-public/AB6AXuABfcxk0FZNX-rXSjQlKdHITUcye_0DRxRffkaa1XaUGzpz_6uVACSPDpdQ7aKBBCyYD_OQEB10IufgpUHo6LRsyUDrF0Yn2gPCcw1oVAaBL4HCkLAVuMaIsBNPsQUXvRRBiTBxiDMcrUMVr4BBbbDfQVn0vZg2WzBdDcxQ-MvpNkzTA9loCSYSR_Ka7Hdds7aNb_jFiK9F3WkF23R1gMMvta4f1UZ3DpSOvCBUif8XUtwCGy0ySUd2A8Nymq63Pe82EQ_ZqoEcEn4',
+                          child: Image.asset(
+                            'assets/images/profile.png',
+                            width: 100,
+                            height: 100,
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.person, color: Colors.white, size: 60),
                           ),
                         ),
                       ),
@@ -220,19 +223,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return [
       _buildSectionHeader("Informasi User"),
       const SizedBox(height: 20),
-      _buildInfoItem("Email address", "dandycandra@365.telkomuniversity.ac.id"),
+      _buildInfoItem("Email address", "${_currentUserName}@365.universitas islam madura.ac.id"),
       const SizedBox(height: 20),
-      _buildInfoItem("Program Studi", "D4 Teknologi Rekayasa Multimedia"),
+      _buildInfoItem("Program Studi", "S1 Teknik Informatika"),
       const SizedBox(height: 20),
-      _buildInfoItem("Fakultas", "FIT"),
-
+      _buildInfoItem("Fakultas", "Teknik"),
+      const SizedBox(height: 20),
+      _buildInfoItem("Kelas", "lab 1"),
       const SizedBox(height: 32),
 
       _buildSectionHeader("Aktivitas Login"),
       const SizedBox(height: 20),
-      _buildInfoItem("First access to site", "Monday, 7 September 2020, 9:27 AM", suffix: "(288 days 12 hours)"),
+      _buildInfoItem("First access to site", "Monday, 7 September 2025, 9:27 AM", suffix: "(288 days 12 hours)"),
       const SizedBox(height: 20),
-      _buildInfoItem("Last access to site", "Tuesday, 22 June 2021, 9:44 PM", suffix: "(now)"),
+      _buildInfoItem("Last access to site", "Tuesday, 22 June 2025, 9:44 PM", suffix: "(now)"),
     ];
   }
 

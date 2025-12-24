@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 
   const HomeScreen({
     super.key,
-    this.userName = 'Mahasiswa Teladan',
+    this.userName = '',
   });
 
   @override
@@ -174,20 +174,26 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(config.profileImageSize / 2),
-              child: Image.network(
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuAojsXXKU07Qn0dA7jHwRb4Kmn8VhX3Akl_8cWyw47dTthzAFsejgXa94aQH5zKeCBfm18xW6yBpAFG4xQpxpvqMHgxAE18TPNVcg5PhNdi7fXH8Ri-bqK7LV79NFETGVBp22y9UyAf92U1N2l5d3uCFkkKiHtalkjhcfUch6m9OtZWHNrxe5OmcrC8nIk-mrj5yyInBZ12hS3EreMfsfFI-vCMRWKCNJAbEIfSMibX8hea8jOGBD-X0PLJoeLHw2_xLLNM1h2e44g',
+              child: Image.asset(
+                'assets/images/profile.png',
                 width: config.profileImageSize,
                 height: config.profileImageSize,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Container(
-                  width: config.profileImageSize,
-                  height: config.profileImageSize,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(Icons.person, color: Colors.grey, size: config.profileImageSize * 0.6),
-                ),
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: config.profileImageSize,
+                    height: config.profileImageSize,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.grey,
+                      size: config.profileImageSize * 0.6,
+                    ),
+                  );
+                },
               ),
             ),
           ),
