@@ -4,6 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/home_screen_new.dart';
+import 'screens/ui_material_screen.dart';
+import 'screens/task_detail_screen.dart';
+import 'screens/upload_task_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,6 +73,10 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
+        '/home_new': (context) => const HomeScreenNew(),
+        '/ui_material': (context) => const UIMaterialScreen(),
+        '/task_detail': (context) => const TaskDetailScreen(),
+        '/upload_task': (context) => const UploadTaskScreen(),
       },
     );
   }

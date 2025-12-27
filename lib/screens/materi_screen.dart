@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'ui_material_screen.dart';
+import 'task_detail_screen.dart';
 
 class MateriScreen extends StatefulWidget {
   final String title;
@@ -201,6 +203,7 @@ class _MateriScreenState extends State<MateriScreen> {
           isRotated: true,
           surfaceColor: isDark ? surfDark : surfLight,
           primaryColor: primary,
+          onTap: () {},
         ),
         _buildMediaItem(
           title: "Elemen-elemen Antarmuka Pengguna",
@@ -209,6 +212,18 @@ class _MateriScreenState extends State<MateriScreen> {
           isDark: isDark,
           surfaceColor: isDark ? surfDark : surfLight,
           primaryColor: primary,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const UIMaterialScreen(
+                  title: 'Pengantar User Interface Design',
+                  currentPage: 1,
+                  totalPages: 26,
+                ),
+              ),
+            );
+          },
         ),
         _buildMediaItem(
           title: "UID Guidelines and Principles",
@@ -217,6 +232,7 @@ class _MateriScreenState extends State<MateriScreen> {
           isDark: isDark,
           surfaceColor: isDark ? surfDark : surfLight,
           primaryColor: primary,
+          onTap: () {},
         ),
         _buildMediaItem(
           title: "User Profile",
@@ -225,6 +241,7 @@ class _MateriScreenState extends State<MateriScreen> {
           isDark: isDark,
           surfaceColor: isDark ? surfDark : surfLight,
           primaryColor: primary,
+          onTap: () {},
         ),
         _buildMediaItem(
           title: "Principles of User Interface DesignURL",
@@ -234,6 +251,7 @@ class _MateriScreenState extends State<MateriScreen> {
           isRotated: true,
           surfaceColor: isDark ? surfDark : surfLight,
           primaryColor: primary,
+          onTap: () {},
         ),
       ],
     );
@@ -252,6 +270,7 @@ class _MateriScreenState extends State<MateriScreen> {
           isCompleted: true,
           description: "Silahkan kerjakan kuis ini dalam waktu 15 menit sebagai nilai pertama komponen kuis. Jangan lupa klik tombol Submit Answer setelah menjawab seluruh pertanyaan.",
           deadline: "Kerjakan sebelum hari Jum'at, 26 Februari 2021 jam 23:59 WIB.",
+          onTap: () {},
         ),
         const SizedBox(height: 20),
         _buildTaskItem(
@@ -260,6 +279,16 @@ class _MateriScreenState extends State<MateriScreen> {
           title: "Tugas 01 - UID Android Mobile Game",
           isCompleted: false,
           description: "1. Buatlah desain tampilan (antarmuka) pada aplikasi mobile game FPS (First Person Shooter) yang akan menjadi tugas pada mata kuliah Pemrograman Aplikasi Permainan.\n\n2. Desain yang dibuat harus melingkupi seluruh tampilan pada aplikasi/game, dari pertama kali aplikasi ............",
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const TaskDetailScreen(
+                  taskTitle: 'Tugas 01 - UID Android Mobile Game',
+                ),
+              ),
+            );
+          },
         ),
       ],
     );
@@ -272,8 +301,11 @@ class _MateriScreenState extends State<MateriScreen> {
     required bool isCompleted,
     required String description,
     String? deadline,
+    VoidCallback? onTap,
   }) {
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       decoration: BoxDecoration(
         color: isDark ? const Color(0xFF27272A) : Colors.white,
         borderRadius: BorderRadius.circular(24), // rounded-3xl approx 24
@@ -389,6 +421,7 @@ class _MateriScreenState extends State<MateriScreen> {
           ],
         ),
       ),
+    ),
     );
   }
 
@@ -400,6 +433,7 @@ class _MateriScreenState extends State<MateriScreen> {
     required Color surfaceColor,
     required Color primaryColor,
     bool isRotated = false,
+    VoidCallback? onTap,
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -427,7 +461,7 @@ class _MateriScreenState extends State<MateriScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: onTap,
           borderRadius: BorderRadius.circular(16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
