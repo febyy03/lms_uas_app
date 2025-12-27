@@ -29,8 +29,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _lastNameController = TextEditingController(text: lastName);
     
     // Default values for other fields as they aren't passed in
-    _emailController = TextEditingController(text: "dandycandra@365.telkomuniversity.ac.id");
-    _countryController = TextEditingController(text: "Indonesia");
+    _emailController = TextEditingController(text: "");
+    _countryController = TextEditingController(text: "");
     _descriptionController = TextEditingController();
   }
 
@@ -98,12 +98,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           ]
                         ),
                         child: ClipOval(
-                           child: Image.network(
-                            'https://lh3.googleusercontent.com/aida-public/AB6AXuCpydEaboIPlmroujgP1N-R47ShcziYySKSzAH40VDD2286itxkOZnP2Ey0hTWdxZJb3i16QsVuHBb9qEvbtJ3iiTsAdhpP7CUUnoc1y5IxPHSmrtY159P9m6PYHjB8P2Dd-jqyNHRBFWE5EpHC_MMPC11FXxfiqij6UUjkXdkDjGrH85y2Iv5lA_UzJSSuP4GYNBP-hzsTlF3YANDKV6fY77yca7pMq0EamEzw9ptgQBGBNlpYknClFx1lV_VGLs0amR0t41Bw_AY',
+                          child: Image.asset(
+                            'assets/images/profile.png',
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.person, color: Colors.white, size: 60),
-                             // Opacity 0.9 handled by color blending if needed, but direct image is fine
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 60,
+                              );
+                            },
                           ),
                         ),
                       ),

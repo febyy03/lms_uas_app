@@ -4,7 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 class MateriScreen extends StatefulWidget {
   final String title;
 
-  const MateriScreen({super.key, required this.title});
+  const MateriScreen({
+    super.key, 
+    this.title = 'Konsep User Interface Design', // Default title from the design
+  });
 
   @override
   State<MateriScreen> createState() => _MateriScreenState();
@@ -15,19 +18,31 @@ class _MateriScreenState extends State<MateriScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    // Custom Colors from Tailwind config
+    final colorPrimary = const Color(0xFF10B981);
+    final colorBgLight = const Color(0xFFF9FAFB);
+    final colorBgDark = const Color(0xFF111827);
+    final colorSurfaceLight = const Color(0xFFFFFFFF);
+    final colorSurfaceDark = const Color(0xFF1F2937);
+    final colorTextPrimaryLight = const Color(0xFF111827);
+    final colorTextPrimaryDark = const Color(0xFFF9FAFB);
+
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? colorBgDark : colorBgLight,
       body: SafeArea(
         child: Column(
           children: [
-            // Top Drag Handle
+            // Top Modal Handle (matches the design div w-16 h-1.5)
             Center(
               child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 12),
-                width: 48,
+                margin: const EdgeInsets.only(top: 12, bottom: 8),
+                width: 64,
                 height: 6,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: isDark ? const Color(0xFF374151) : const Color(0xFFE5E7EB), // gray-700 : gray-200
                   borderRadius: BorderRadius.circular(3),
                 ),
               ),
@@ -35,27 +50,16 @@ class _MateriScreenState extends State<MateriScreen> {
             
             // Header
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              child: Row(
-                children: [
-                   InkWell(
-                     onTap: () => Navigator.pop(context),
-                     child: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-                   ),
-                   const SizedBox(width: 16),
-                   Expanded(
-                    child: Text(
-                      widget.title,
-                      style: GoogleFonts.poppins(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(width: 36),
-                ],
+              padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+              child: Text(
+                widget.title,
+                style: GoogleFonts.inter(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: isDark ? colorTextPrimaryDark : colorTextPrimaryLight,
+                  height: 1.25, // leading-tight
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
 
@@ -63,8 +67,6 @@ class _MateriScreenState extends State<MateriScreen> {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
-                  const SizedBox(height: 16),
-                  
                   // Description Section
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -73,19 +75,19 @@ class _MateriScreenState extends State<MateriScreen> {
                       children: [
                         Text(
                           'Deskripsi',
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                            color: isDark ? Colors.white : const Color(0xFF111827),
                           ),
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'Antarmuka yang dibangun harus memperhatikan prinsip-prinsip desain yang ada. Hal ini diharapkan agar antarmuka yang dibangun bukan hanya menarik secara visual tetapi dengan memperhatikan kaidah-kaidah prinsip desain diharapkan akan mendukung pengguna dalam menggunakan produk secara baik. Pelajaran mengenai prinsip UID ini sudah pernah diajarkan dalam mata kuliah Implementasi Desain Antarmuka Pengguna tetap pada matakuliah ini akan direview kembali sehingga dapat menjadi bekal saat memasukki materi mengenai User Experience',
-                          style: GoogleFonts.poppins(
+                          'Konsep dasar User Interface Design akan dipelajari bagaimana membangun sebuah Interaction Design pada antarmuka. Interaction ini sangat penting untuk aplikasi berkomunikasi dengan pengguna. Lalu dipelajari juga poin-poin penting pada interaction design seperti visibility, feedback, limitation, consistency dan affordance. Dan terakhir materi conceptual dan perceptual design interaction akan memberikan gambaran bagaimana bentuk dari Interaction.',
+                          style: GoogleFonts.inter(
                             fontSize: 14, 
-                            height: 1.6,
-                            color: Colors.grey[800],
+                            height: 1.625, // leading-relaxed
+                            color: isDark ? const Color(0xFFD1D5DB) : const Color(0xFF4B5563), // gray-300 : gray-600
                           ),
                           textAlign: TextAlign.justify,
                         ),
@@ -93,66 +95,76 @@ class _MateriScreenState extends State<MateriScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 24),
 
                   // Tab Bar
                   Container(
+                    margin: const EdgeInsets.only(bottom: 24),
                     decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.grey[100]!)),
+                      color: isDark ? const Color(0xFF1F2937).withValues(alpha: 0.5) : const Color(0xFFF9FAFB),
+                      border: Border(
+                        bottom: BorderSide(
+                          color: isDark ? const Color(0xFF374151) : const Color(0xFFE5E7EB), // gray-700 : gray-200
+                        ),
+                      ),
                     ),
                     child: Row(
                       children: [
                         Expanded(
                           child: InkWell(
                             onTap: () => setState(() => _selectedTabIndex = 0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 12),
-                                  child: Text(
-                                    'Lampiran Materi',
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: _selectedTabIndex == 0 ? FontWeight.w600 : FontWeight.w500,
-                                      color: _selectedTabIndex == 0 ? Colors.black : Colors.grey[500],
-                                    ),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: _selectedTabIndex == 0 
+                                      ? (isDark ? Colors.white : Colors.black)
+                                      : Colors.transparent,
+                                    width: 2,
                                   ),
                                 ),
-                                Container(
-                                  height: 4,
-                                  width: 64,
-                                  decoration: BoxDecoration(
-                                    color: _selectedTabIndex == 0 ? Colors.black : Colors.transparent,
-                                    borderRadius: const BorderRadius.vertical(top: Radius.circular(2)),
-                                  ),
+                              ),
+                              child: Text(
+                                'Lampiran Materi',
+                                style: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: _selectedTabIndex == 0
+                                    ? (isDark ? Colors.white : const Color(0xFF111827))
+                                    : (isDark ? const Color(0xFF9CA3AF) : const Color(0xFF6B7280)),
                                 ),
-                              ],
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),
                         Expanded(
                           child: InkWell(
                             onTap: () => setState(() => _selectedTabIndex = 1),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 12),
-                                  child: Text(
-                                    'Tugas dan Kuis',
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: _selectedTabIndex == 1 ? FontWeight.w600 : FontWeight.w500,
-                                      color: _selectedTabIndex == 1 ? Colors.black : Colors.grey[500],
-                                    ),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: _selectedTabIndex == 1
+                                      ? (isDark ? Colors.white : Colors.black)
+                                      : Colors.transparent,
+                                    width: 2,
                                   ),
                                 ),
-                                Container(
-                                  height: 4,
-                                  width: 64,
-                                  decoration: BoxDecoration(
-                                    color: _selectedTabIndex == 1 ? Colors.black : Colors.transparent,
-                                    borderRadius: const BorderRadius.vertical(top: Radius.circular(2)),
-                                  ),
+                              ),
+                              child: Text(
+                                'Tugas dan Kuis',
+                                style: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: _selectedTabIndex == 1
+                                    ? (isDark ? Colors.white : const Color(0xFF111827))
+                                    : (isDark ? const Color(0xFF9CA3AF) : const Color(0xFF6B7280)),
                                 ),
-                              ],
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),
@@ -162,8 +174,10 @@ class _MateriScreenState extends State<MateriScreen> {
 
                   // Content
                   Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: _selectedTabIndex == 0 ? _buildMateriContent() : _buildTugasContent(),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: _selectedTabIndex == 0 
+                      ? _buildMateriContent(isDark, colorSurfaceLight, colorSurfaceDark, colorPrimary) 
+                      : _buildTugasContent(isDark),
                   ),
                   
                   const SizedBox(height: 48),
@@ -176,102 +190,296 @@ class _MateriScreenState extends State<MateriScreen> {
     );
   }
 
-  Widget _buildMateriContent() {
+  Widget _buildMateriContent(bool isDark, Color surfLight, Color surfDark, Color primary) {
     return Column(
       children: [
-        _buildAttachmentItem(Icons.link, "Zoom Meeting Syncronous", true, isLink: true),
-        _buildAttachmentItem(Icons.description_outlined, "Pengantar User Interface Design", false),
-        _buildAttachmentItem(Icons.description_outlined, "Empat Teori Dasar Antarmuka Pengguna", false),
-        _buildAttachmentItem(Icons.description_outlined, "Empat Teori Dasar Antarmuka Pengguna", true),
-        _buildAttachmentItem(Icons.video_file_outlined, "User Interface Design for Beginner", true),
-        _buildAttachmentItem(Icons.link, "20 Prinsip Desain", true, isLink: true),
-        _buildAttachmentItem(Icons.link, "Best Practice UI Design", true, isLink: true),
+        _buildMediaItem(
+          title: "Zoom Meeting Syncronous",
+          icon: Icons.attach_file,
+          isCompleted: true, 
+          isDark: isDark,
+          isRotated: true,
+          surfaceColor: isDark ? surfDark : surfLight,
+          primaryColor: primary,
+        ),
+        _buildMediaItem(
+          title: "Elemen-elemen Antarmuka Pengguna",
+          icon: Icons.description_outlined,
+          isCompleted: true, 
+          isDark: isDark,
+          surfaceColor: isDark ? surfDark : surfLight,
+          primaryColor: primary,
+        ),
+        _buildMediaItem(
+          title: "UID Guidelines and Principles",
+          icon: Icons.description_outlined,
+          isCompleted: true, 
+          isDark: isDark,
+          surfaceColor: isDark ? surfDark : surfLight,
+          primaryColor: primary,
+        ),
+        _buildMediaItem(
+          title: "User Profile",
+          icon: Icons.description_outlined,
+          isCompleted: true,
+          isDark: isDark,
+          surfaceColor: isDark ? surfDark : surfLight,
+          primaryColor: primary,
+        ),
+        _buildMediaItem(
+          title: "Principles of User Interface DesignURL",
+          icon: Icons.attach_file,
+          isCompleted: true,
+          isDark: isDark,
+          isRotated: true,
+          surfaceColor: isDark ? surfDark : surfLight,
+          primaryColor: primary,
+        ),
       ],
     );
   }
 
-  Widget _buildTugasContent() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget _buildTugasContent(bool isDark) {
+    return ListView(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      padding: const EdgeInsets.only(top: 24, bottom: 24),
       children: [
-        const SizedBox(height: 24),
-        Container(
-          width: 256,
-          height: 256,
-          decoration: const BoxDecoration(
-            // Since we can't depend on external assets easily without network, 
-            // relying on the network image provided in the prompt.
-            // If offline, this might need a local asset fallback, but for now using the URL.
-          ),
-          child: Image.network(
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuANd6k-quSjX93k7w5giGjJtSR__h_Alygumg-lZoeQ7Lv8GcINYurBGKEClE6VH4TT7R0YRNSpm7XNH8wM9IYVr6TLW29DK4stAT9OLhQNZYbXQvJ0NhdUQ1Z_T5WsihGWIcmcR7Nb6NKD6cc8vN17H0EZCBpSyQEkt6FFLx1nbTcKsOC1Z20M9XXbr6g6LqVDKx1IlX_0yCJHXO3SnCh8GsEr4QC7RRcZIMETYpKzc1VnHG78ZSKQXWPsdhXwPL4sMy5wBqCD3gk',
-            fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) => 
-               const Icon(Icons.task_alt, size: 100, color: Colors.grey),
-          ),
+        _buildTaskItem(
+          isDark: isDark,
+          icon: Icons.quiz_outlined,
+          title: "Quiz Review 01",
+          isCompleted: true,
+          description: "Silahkan kerjakan kuis ini dalam waktu 15 menit sebagai nilai pertama komponen kuis. Jangan lupa klik tombol Submit Answer setelah menjawab seluruh pertanyaan.",
+          deadline: "Kerjakan sebelum hari Jum'at, 26 Februari 2021 jam 23:59 WIB.",
         ),
-         const SizedBox(height: 16),
-        Text(
-          'Tidak Ada Tugas Dan Kuis Hari Ini',
-          style: GoogleFonts.poppins(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
-          ),
-          textAlign: TextAlign.center,
+        const SizedBox(height: 20),
+        _buildTaskItem(
+          isDark: isDark,
+          icon: Icons.assignment_outlined,
+          title: "Tugas 01 - UID Android Mobile Game",
+          isCompleted: false,
+          description: "1. Buatlah desain tampilan (antarmuka) pada aplikasi mobile game FPS (First Person Shooter) yang akan menjadi tugas pada mata kuliah Pemrograman Aplikasi Permainan.\n\n2. Desain yang dibuat harus melingkupi seluruh tampilan pada aplikasi/game, dari pertama kali aplikasi ............",
         ),
       ],
     );
   }
 
-  Widget _buildAttachmentItem(IconData icon, String title, bool isCompleted, {bool isLink = false}) {
+  Widget _buildTaskItem({
+    required bool isDark,
+    required IconData icon,
+    required String title,
+    required bool isCompleted,
+    required String description,
+    String? deadline,
+  }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF27272A) : Colors.white,
+        borderRadius: BorderRadius.circular(24), // rounded-3xl approx 24
+        border: Border.all(
+          color: isDark ? const Color(0xFF374151) : const Color(0xFFF3F4F6), // gray-700 : gray-100
+        ),
+        boxShadow: [
+           BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Left Icon Area
+            Container(
+              width: 64,
+              decoration: BoxDecoration(
+                color: isDark ? const Color(0xFF27272A) : Colors.white,
+                border: Border(
+                  right: BorderSide(
+                    color: isDark ? const Color(0xFF374151) : const Color(0xFFE5E7EB), // gray-200
+                  ),
+                ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  bottomLeft: Radius.circular(24),
+                ),
+              ),
+              child: Center(
+                child: Icon(
+                  icon,
+                  size: 30, // text-3xl approx 30
+                  color: isDark ? Colors.white : const Color(0xFF111827),
+                ),
+              ),
+            ),
+            
+            // Content Area
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Title Row
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                           color: isDark ? const Color(0xFF374151) : const Color(0xFFE5E7EB), // gray-200
+                        ),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: GoogleFonts.inter(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: isDark ? Colors.white : const Color(0xFF111827),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Icon(
+                          Icons.check_circle_rounded,
+                          size: 20, // text-xl approx 20
+                          color: isCompleted 
+                            ? const Color(0xFF22C55E) // green-500
+                            : (isDark ? const Color(0xFF4B5563) : const Color(0xFFD1D5DB)), // gray-600 : gray-300
+                        ),
+                      ],
+                    ),
+                  ),
+                  
+                  // Description & Deadline
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          description,
+                          style: GoogleFonts.inter(
+                            fontSize: 12, // text-xs
+                            height: 1.625, // leading-relaxed
+                            color: isDark ? const Color(0xFFD1D5DB) : const Color(0xFF4B5563), // gray-300 : gray-600
+                          ),
+                        ),
+                        if (deadline != null) ...[
+                          const SizedBox(height: 8),
+                          Text(
+                            deadline,
+                            style: GoogleFonts.inter(
+                              fontSize: 12, // text-xs
+                              color: isDark ? const Color(0xFF9CA3AF) : const Color(0xFF6B7280), // gray-400 : gray-500
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMediaItem({
+    required String title,
+    required IconData icon,
+    required bool isCompleted,
+    required bool isDark,
+    required Color surfaceColor,
+    required Color primaryColor,
+    bool isRotated = false,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[200]!),
+        color: surfaceColor,
+        borderRadius: BorderRadius.circular(16), // 'rounded-2xl'
+        border: Border.all(
+          color: isDark ? const Color(0xFF374151) : const Color(0xFFF3F4F6), // gray-700 : gray-100
+        ),
         boxShadow: [
+          // shadow-card
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 3,
+            offset: const Offset(0, 1),
+          ),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 2,
             offset: const Offset(0, 1),
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Icon(
-                  icon,
-                  color: Colors.grey[800],
-                  size: 24,
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    title,
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[800],
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {},
+          borderRadius: BorderRadius.circular(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: isDark ? const Color(0xFF374151) : const Color(0xFFF9FAFB), // gray-700 : gray-50
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: isRotated
+                          ? Transform.rotate(
+                              angle: 0.785398, // 45 degrees in radians
+                              child: Icon(icon, color: isDark ? const Color(0xFFD1D5DB) : const Color(0xFF374151), size: 24),
+                            )
+                          : Icon(icon, color: isDark ? const Color(0xFFD1D5DB) : const Color(0xFF374151), size: 24),
                     ),
-                  ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: isDark ? const Color(0xFFE5E7EB) : const Color(0xFF1F2937),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(width: 12),
+              Container(
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 16,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 12),
-          Icon(
-            Icons.check_circle,
-            color: isCompleted ? const Color(0xFF22C55E) : Colors.grey[300],
-            size: 24,
-          ),
-        ],
+        ),
       ),
     );
   }

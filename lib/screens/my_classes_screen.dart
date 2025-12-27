@@ -196,39 +196,39 @@ class MyClassesScreen extends StatelessWidget {
               ],
             ),
             
-            // Bottom Navbar
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                decoration: const BoxDecoration(
-                  color: Color(0xFFA91D23), // Primary Red
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 6,
-                      offset: Offset(0, -4),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                     _BottomNavItem(icon: Icons.home, label: 'Home', isActive: false, onTap: (){
-                       Navigator.of(context).popUntil((route) => route.isFirst);
-                     }),
-                     const _BottomNavItem(icon: Icons.school, label: 'Kelas Saya', isActive: true),
-                     const _BottomNavItem(icon: Icons.notifications, label: 'Notifikasi', isActive: false),
-                  ],
-                ),
-              ),
-            ),
+            // // Bottom Navbar
+            // Positioned(
+            //   bottom: 0,
+            //   left: 0,
+            //   right: 0,
+            //   child: Container(
+            //     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            //     decoration: const BoxDecoration(
+            //       color: Color(0xFFA91D23), // Primary Red
+            //       borderRadius: BorderRadius.only(
+            //         topLeft: Radius.circular(40),
+            //         topRight: Radius.circular(40),
+            //       ),
+            //       boxShadow: [
+            //         BoxShadow(
+            //           color: Colors.black12,
+            //           blurRadius: 6,
+            //           offset: Offset(0, -4),
+            //         ),
+            //       ],
+            //     ),
+            //   //   child: Row(
+            //   //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   //     children: [
+            //   //        _BottomNavItem(icon: Icons.home, label: 'Home', isActive: false, onTap: (){
+            //   //          Navigator.of(context).popUntil((route) => route.isFirst);
+            //   //        }),
+            //   //        const _BottomNavItem(icon: Icons.school, label: 'Kelas Saya', isActive: true),
+            //   //        const _BottomNavItem(icon: Icons.notifications, label: 'Notifikasi', isActive: false),
+            //   //     ],
+            //   //   ),
+            //   // ),
+            // ),
           ],
         ),
       ),
