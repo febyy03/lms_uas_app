@@ -374,6 +374,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           title: 'Quiz 1: Prinsip Desain',
           subtitle: 'Ditutup: 12 Okt, 23:59',
           grade: '85/100',
+          onTap: () => Navigator.pushNamed(context, '/quiz_review'),
         ),
         const SizedBox(height: 16),
         _buildTaskCard(
@@ -426,6 +427,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     bool isDone = false,
     Color? primaryColor,
     Color? statusColor,
+    VoidCallback? onTap,
   }) {
     Color getIconBgColor() {
       if (isDark) {
@@ -598,7 +600,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                             )
                           else
                             InkWell(
-                              onTap: () {},
+                              onTap: onTap ?? () {},
                               child: Row(
                                 children: [
                                   Text(

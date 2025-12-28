@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'ui_material_screen.dart';
 import 'task_detail_screen.dart';
+import 'quiz_review_screen.dart';
+import 'video_player_screen.dart';
 
 class MateriScreen extends StatefulWidget {
   final String title;
@@ -203,7 +205,16 @@ class _MateriScreenState extends State<MateriScreen> {
           isRotated: true,
           surfaceColor: isDark ? surfDark : surfLight,
           primaryColor: primary,
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const VideoPlayerScreen(
+                  videoTitle: 'Video - User Interface Design For Beginner',
+                ),
+              ),
+            );
+          },
         ),
         _buildMediaItem(
           title: "Elemen-elemen Antarmuka Pengguna",
@@ -263,14 +274,16 @@ class _MateriScreenState extends State<MateriScreen> {
       shrinkWrap: true,
       padding: const EdgeInsets.only(top: 24, bottom: 24),
       children: [
-        _buildTaskItem(
+        _buildQuizCard(
           isDark: isDark,
-          icon: Icons.quiz_outlined,
-          title: "Quiz Review 01",
-          isCompleted: true,
-          description: "Silahkan kerjakan kuis ini dalam waktu 15 menit sebagai nilai pertama komponen kuis. Jangan lupa klik tombol Submit Answer setelah menjawab seluruh pertanyaan.",
-          deadline: "Kerjakan sebelum hari Jum'at, 26 Februari 2021 jam 23:59 WIB.",
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const QuizReviewScreen(),
+              ),
+            );
+          },
         ),
         const SizedBox(height: 20),
         _buildTaskItem(
@@ -513,6 +526,153 @@ class _MateriScreenState extends State<MateriScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+  Widget _buildQuizCard({
+    required bool isDark,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: isDark ? const Color(0xFF27272A) : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+             BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Icon
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF7ED), // Orange-50
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.help_outline_rounded,
+                      color: Color(0xFFEA580C), // Orange-600
+                      size: 24,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                // Content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Quiz 1: Prinsip Desain',
+                              style: GoogleFonts.inter(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: isDark ? Colors.white : const Color(0xFF1F2937),
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          // Badge
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFDCFCE7), // Green-100
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: const Color(0xFF86EFAC)), // Green-300
+                            ),
+                            child: Text(
+                              'Selesai',
+                              style: GoogleFonts.inter(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xFF15803D), // Green-700
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Ditutup: 12 Okt, 23:59',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          color: isDark ? Colors.grey[400] : const Color(0xFF6B7280),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Divider
+            Divider(
+              height: 1,
+              color: isDark ? Colors.grey[700] : Colors.grey[200],
+            ),
+            const SizedBox(height: 12),
+            // Bottom Row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.star_rounded,
+                      size: 18,
+                      color: Color(0xFF9CA3AF), // Gray-400
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Nilai: 85/100',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF9CA3AF), // Gray-400
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Review',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF9CA3AF),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    const Icon(
+                      Icons.chevron_right_rounded,
+                      size: 16,
+                      color: Color(0xFF9CA3AF),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

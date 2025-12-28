@@ -8,6 +8,10 @@ import 'screens/home_screen_new.dart';
 import 'screens/ui_material_screen.dart';
 import 'screens/task_detail_screen.dart';
 import 'screens/upload_task_screen.dart';
+import 'screens/video_player_screen.dart';
+import 'screens/quiz_review_screen.dart';
+import 'screens/quiz_question_screen.dart';
+import 'screens/quiz_result_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,6 +81,10 @@ class MyApp extends StatelessWidget {
         '/ui_material': (context) => const UIMaterialScreen(),
         '/task_detail': (context) => const TaskDetailScreen(),
         '/upload_task': (context) => const UploadTaskScreen(),
+        '/video_player': (context) => const VideoPlayerScreen(),
+        '/quiz_review': (context) => const QuizReviewScreen(),
+        '/quiz_question': (context) => const QuizQuestionScreen(),
+        '/quiz_result': (context) => const QuizResultScreen(),
       },
     );
   }
