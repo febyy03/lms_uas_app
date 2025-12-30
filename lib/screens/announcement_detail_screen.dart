@@ -61,7 +61,7 @@ class AnnouncementDetailScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Maintenance Pra UAS Semester Genap 2020/2021',
+                  'Maintenance Pra UAS Semester Genap 2024/2025',
                   style: GoogleFonts.poppins(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -87,7 +87,7 @@ class AnnouncementDetailScreen extends StatelessWidget {
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                        'By Admin Celoe - Rabu, 2 Juni 2021, 10:45',
+                        'By Admin - Rabu, 2 Juni 2025, 10:45',
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
@@ -125,7 +125,7 @@ class AnnouncementDetailScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  'Diinformasikan kepada seluruh pengguna LMS, kami dari tim CeLOE akan melakukan maintenance pada tanggal 12 Juni 2021, untuk meningkatkan layanan server dalam menghadapi ujian akhir semester (UAS).',
+                  'Diinformasikan kepada seluruh mahasiswa universitas islam madura, kami dari admin universitas islam madura akan melakukan UAS pada tanggal 12 Juni 2025, di himbau untuk seluruh mahasiswa untuk mengikuti ujian akhir semester (UAS).',
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     height: 1.6,
@@ -144,17 +144,17 @@ class AnnouncementDetailScreen extends StatelessWidget {
                     ),
                     children: [
                       const TextSpan(
-                        text: 'Dengan adanya kegiatan maintenance tersebut maka situs LMS (',
+                        text: 'Dengan adanya ujian akhir semester (UAS) maka situs LMS tidak dapat diakses mulai pukul 00.00 s/d 06.00 WIB.',
                       ),
                       TextSpan(
-                        text: 'lms.telkomuniversity.ac.id',
+                        text: 'universitas.islam.madura.ac.id',
                         style: GoogleFonts.poppins(
                           color: primaryColor,
                           decoration: TextDecoration.underline,
                         ),
                       ),
                       const TextSpan(
-                        text: ') tidak dapat diakses mulai pukul 00.00 s/d 06.00 WIB.',
+                        text: ' tidak dapat diakses mulai pukul 00.00 s/d 06.00 WIB.',
                       ),
                     ],
                   ),
@@ -179,7 +179,7 @@ class AnnouncementDetailScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'CeLOE Telkom University',
+                  'universitas islam madura',
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -209,28 +209,28 @@ class AnnouncementDetailScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _BottomNavItem(
-                    icon: Icons.home_rounded,
-                    label: 'Home',
-                    onTap: () {}, // Navigate if needed
-                  ),
-                  _BottomNavItem(
-                    icon: Icons.school_rounded,
-                    label: 'Kelas Saya',
-                    onTap: () {},
-                  ),
-                   _BottomNavItem(
-                    icon: Icons.notifications_rounded,
-                    label: 'Notifikasi',
-                    hasNotification: true,
-                    onTap: () {},
-                  ),
-                ],
-              ),
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     _BottomNavItem(
+              //       icon: Icons.home_rounded,
+              //       label: 'Home',
+              //       onTap: () {}, // Navigate if needed
+              //     ),
+              //     _BottomNavItem(
+              //       icon: Icons.school_rounded,
+              //       label: 'Kelas Saya',
+              //       onTap: () {},
+              //     ),
+              //      _BottomNavItem(
+              //       icon: Icons.notifications_rounded,
+              //       label: 'Notifikasi',
+              //       hasNotification: true,
+              //       onTap: () {},
+              //     ),
+              //   ],
+              // ),
             ),
           ),
         ],

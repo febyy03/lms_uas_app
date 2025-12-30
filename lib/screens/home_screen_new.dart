@@ -10,7 +10,7 @@ class HomeScreenNew extends StatefulWidget {
 
   const HomeScreenNew({
     super.key,
-    this.userName = 'DANDY CANDRA PRATAMA',
+    this.userName = '',
   });
 
   @override
@@ -397,7 +397,7 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: Text(
-              'Maintenance Pra UAS Semester Genap 2020/2021',
+              'announcement UAS Semester Genap 2025/2026',
               style: GoogleFonts.poppins(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -432,7 +432,7 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
           Padding(
             padding: const EdgeInsets.all(20),
             child: Text(
-              'Diinformasikan kepada seluruh pengguna LMS, kami dari tim CeLOE akan melakukan maintenance pada tanggal 12 Juni 2021 untuk meningkatkan layanan server dalam menghadapi ujian akhir semester (UAS).',
+              'Diinformasikan kepada seluruh mahasiswa, kami dari tim admin universitas islam madura akan melakukan maintenance pada tanggal 12 Juni 2025 untuk meningkatkan layanan server dalam menghadapi ujian akhir semester (UAS).',
               style: GoogleFonts.poppins(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
@@ -467,24 +467,24 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
         // Course Cards
         _buildCourseCard(
           isDark: isDark,
-          title: 'DESAIN ANTARMUKA & PENGALAMAN PENGGUNA D4SM-42-03 [ADY]',
-          semester: '2021/2',
+          title: 'DESAIN ANTARMUKA & PENGALAMAN PENGGUNA D4SM-42-03 [miftahul walid]',
+          semester: '2025/2',
           progress: 89,
           thumbnailType: CourseThumbType.uiux,
         ),
         const SizedBox(height: 24),
         _buildCourseCard(
           isDark: isDark,
-          title: 'KEWARGANEGARAAN D4SM-41-GAB1 [BBO]. JUMAT 2',
-          semester: '2021/2',
+          title: 'cyber security D4SM-41-GAB1 [masdukil makruf]. JUMAT 2',
+          semester: '2025/2',
           progress: 86,
           thumbnailType: CourseThumbType.garuda,
         ),
         const SizedBox(height: 24),
         _buildCourseCard(
           isDark: isDark,
-          title: 'SISTEM OPERASI D4SM-44-02 [DDS]',
-          semester: '2021/2',
+          title: 'SISTEM OPERASI D4SM-44-02 [miftahul walid]',
+          semester: '2025/2',
           progress: 90,
           thumbnailType: CourseThumbType.os,
         ),
@@ -492,7 +492,7 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
         _buildCourseCard(
           isDark: isDark,
           title: 'PEMROGRAMAN PERANGKAT BERGERAK MULTIMEDIA D4SM-41-GAB1 [APJ]',
-          semester: '2021/2',
+          semester: '2025/2',
           progress: 90,
           thumbnailType: CourseThumbType.mobile,
         ),
@@ -500,7 +500,7 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
         _buildCourseCard(
           isDark: isDark,
           title: 'BAHASA INGGRIS: BUSINESS AND SCIENTIFIC D4SM-41-GAB1 [ARS]',
-          semester: '2021/2',
+          semester: '2025/2',
           progress: 90,
           thumbnailType: CourseThumbType.english,
         ),
@@ -508,7 +508,7 @@ class _HomeScreenNewState extends State<HomeScreenNew> {
         _buildCourseCard(
           isDark: isDark,
           title: 'PEMROGRAMAN MULTIMEDIA INTERAKTIF D4SM-43-04 [TPR]',
-          semester: '2021/2',
+          semester: '2025/2',
           progress: 90,
           thumbnailType: CourseThumbType.multimedia,
         ),

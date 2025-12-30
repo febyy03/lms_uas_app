@@ -54,18 +54,18 @@ class AnnouncementScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
             children: const [
               _AnnouncementItem(
-                title: 'Maintenance Pra UAS Semester Genap 2020/2021',
-                subtitle: 'By Admin Celoe - Rabu, 2 Juni 2021, 10:45',
+                title: 'Maintenance Pra UAS Semester Genap 2025/2026',
+                subtitle: 'By Admin universitas islam madura - Rabu, 2 Juni 2025, 10:45',
               ),
               SizedBox(height: 32),
               _AnnouncementItem(
-                title: 'Pengumuman Maintance',
-                subtitle: 'By Admin Celoe - Senin, 11 Januari 2021, 7:52',
+                title: 'Pengumuman UAS',
+                subtitle: 'By Admin universitas islam madura - Senin, 11 Januari 2025, 7:52',
               ),
               SizedBox(height: 32),
               _AnnouncementItem(
-                title: 'Maintenance Pra UAS Semeter Ganjil 2020/2021',
-                subtitle: 'By Admin Celoe - Minggu, 10 Januari 2021, 9:30',
+                title: 'Maintenance Pra UAS Semeter Ganjil 2025/2026',
+                subtitle: 'By Admin universitas islam madura - Minggu, 10 Januari 2025, 9:30',
               ),
             ],
           ),
